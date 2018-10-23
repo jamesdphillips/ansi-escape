@@ -1,9 +1,9 @@
 # ansi-escape
 
 <p>
+  <a href="https://www.npmjs.com/package/@jamesdphillips/ansi-escape"><img src="https://img.shields.io/npm/v/@jamesdphillips/ansi-escape.svg?style=flat-square"></a>
+  <a href="https://github.com/jamesdphillips/ansi-escape/blob/master/LICENSE"><img src="http://img.shields.io/npm/l/@jameesdphillips/ansi-escape.svg?style=flat-square"></a>
   <a href="https://circleci.com/gh/jamesdphillips/ansi-escape/tree/master"><img src="https://circleci.com/gh/jamesdphillips/ansi-escape/tree/master.svg?logo=sdfsdf&style=shield"></a>
-  <a href="https://codeclimate.com/github/jamesdphillips/ansi-escape/maintainability"><img src="https://api.codeclimate.com/v1/badges/9527ae9a786ed7c9ad5b/maintainability" /></a>
-  <a href="https://codeclimate.com/github/jamesdphillips/ansi-escape/test_coverage"><img src="https://api.codeclimate.com/v1/badges/9527ae9a786ed7c9ad5b/test_coverage" /></a>
 </p>
 
 > No bells or whistles parsing of ANSI escape sequences.
