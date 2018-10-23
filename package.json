@@ -15,11 +15,16 @@
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-flow": "^7.0.0",
+    "@sensuapp/eslint-config": "^1.4.0",
+    "@sensuapp/eslint-config-flow": "^1.4.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
+    "eslint": "^5.7.0",
+    "eslint-plugin-import": "^2.9.0",
     "flow-bin": "^0.83.0",
     "flow-copy-source": "^2.0.2",
     "jest": "^23.6.0",
+    "prettier": "^1.14.3",
     "regenerator-runtime": "^0.12.1",
     "rimraf": "^2.6.2",
     "rollup": "^0.66.6",
@@ -31,8 +36,9 @@
     "build:lib": "npx rollup src/index.js --file lib/index.js --config",
     "build:flow": "npx flow-copy-source -v -i '**/*test*' src lib",
     "clean": "npx rimraf lib",
-    "test": "yarn test:flow && yarn test:spec",
+    "test": "yarn test:lint && yarn test:flow && yarn test:spec",
     "test:flow": "npx flow",
-    "test:spec": "npx jest"
+    "test:spec": "npx jest",
+    "test:lint": "npx eslint src"
   }
 }
