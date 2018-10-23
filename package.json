@@ -1,5 +1,5 @@
 {
-  "name": "ansi-escape",
+  "name": "@jamesdphillips/ansi-escape",
   "version": "1.0.0",
   "description": "No bells, no whistles just parsing of ANSI escape sequences.",
   "main": "./lib",
