@@ -2,11 +2,15 @@
   "name": "@jamesdphillips/ansi-escape",
   "version": "1.0.0",
   "description": "No bells, no whistles just parsing of ANSI escape sequences.",
+  "files": [
+    "lib/**/*.@(js|flow)"
+  ],
   "main": "./lib",
   "sideEffects": false,
   "repository": "https://www.github.com/jamesdphillips/ansi-escape ",
   "author": "James Phillips <jamesdphillips@gmail.com>",
   "license": "MIT",
+  "private": false,
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
