@@ -22,10 +22,10 @@
   },
   "scripts": {
     "build": "yarn build:lib && yarn build:flow",
-    "build:lib": "rollup src/index.js --file lib/index.js --config",
+    "build:lib": "npx rollup src/index.js --file lib/index.js --config",
     "build:flow": "flow-copy-source -v -i '**/*.test.js$' src lib",
     "test": "yarn test:flow && yarn test:jest",
-    "test:flow": "flow",
-    "test:spec": "jest"
+    "test:flow": "npx flow",
+    "test:spec": "npx jest"
   }
 }
