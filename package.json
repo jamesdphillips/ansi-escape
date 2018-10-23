@@ -1,0 +1,31 @@
+{
+  "name": "ansi-escape",
+  "version": "1.0.0",
+  "description": "No bells, no whistles just parsing of ANSI escape sequences.",
+  "main": "./lib",
+  "sideEffects": false,
+  "repository": "https://www.github.com/jamesdphillips/ansi-escape ",
+  "author": "James Phillips <jamesdphillips@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-flow": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "flow-bin": "^0.83.0",
+    "jest": "^23.6.0",
+    "regenerator-runtime": "^0.12.1",
+    "rollup": "^0.66.6",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-node-resolve": "^3.4.0"
+  },
+  "scripts": {
+    "build": "yarn build:lib && yarn build:flow",
+    "build:lib": "rollup src/index.js --file lib/index.js --config",
+    "build:flow": "flow-copy-source -v -i '**/*.test.js$' src lib",
+    "test": "yarn test:flow && yarn test:jest",
+    "test:flow": "flow",
+    "test:spec": "jest"
+  }
+}
