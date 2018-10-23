@@ -14,8 +14,10 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "flow-bin": "^0.83.0",
+    "flow-copy-source": "^2.0.2",
     "jest": "^23.6.0",
     "regenerator-runtime": "^0.12.1",
+    "rimraf": "^2.6.2",
     "rollup": "^0.66.6",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-node-resolve": "^3.4.0"
@@ -23,7 +25,8 @@
   "scripts": {
     "build": "yarn build:lib && yarn build:flow",
     "build:lib": "npx rollup src/index.js --file lib/index.js --config",
-    "build:flow": "flow-copy-source -v -i '**/*.test.js$' src lib",
+    "build:flow": "npx flow-copy-source -v -i '**/*test*' src lib",
+    "clean": "npx rimraf lib",
     "test": "yarn test:flow && yarn test:spec",
     "test:flow": "npx flow",
     "test:spec": "npx jest"
