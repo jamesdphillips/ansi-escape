@@ -1,5 +1,3 @@
-/* @flow */
-
 type Decorations =
   | "bold"
   | "dim"
@@ -21,33 +19,33 @@ type ANSIColors =
   | "white";
 
 type ANSIColor = {
-  type: "ansi",
-  color: ANSIColors,
-  bright: boolean,
+  type: "ansi";
+  color: ANSIColors;
+  bright: boolean;
 };
 
 type RGBColor = {
-  type: "rgb",
-  red: number,
-  green: number,
-  blue: number,
+  type: "rgb";
+  red: number;
+  green: number;
+  blue: number;
 };
 
 type Color = ANSIColor | RGBColor;
 
 type Chunk = {
-  content: string,
-  clearLine: boolean,
-  decoration: ?Decorations,
-  fgColor: ?Color,
-  bgColor: ?Color,
+  content: string;
+  clearLine: boolean;
+  decoration: Decorations | null;
+  fgColor: Color | null;
+  bgColor: Color | null;
 };
 
 type ParseOpts = {
-  clearLine: boolean,
+  clearLine: boolean;
 };
 
-const escapeSequence = new RegExp(/\033\[/);
+const escapeSequence = new RegExp(/\x1b\[/);
 const ansiColors: Array<ANSIColors> = [
   "black",
   "red",
@@ -59,7 +57,7 @@ const ansiColors: Array<ANSIColors> = [
   "white",
 ];
 
-function createRGBColor(red, green, blue: number): RGBColor {
+function createRGBColor(red: number, green: number, blue: number): RGBColor {
   return {
     type: "rgb",
     red,
@@ -104,14 +102,14 @@ function format8bitColor(num: number): Color {
 }
 
 // eslint-disable-next-line complexity
-function parseChunk(text, opts: ParseOpts): Chunk {
+function parseChunk(text: string, opts: ParseOpts): Chunk {
   const result = {
     content: text,
     fgColor: null,
     bgColor: null,
     clearLine: opts.clearLine,
     decoration: null,
-  };
+  } as Chunk;
 
   // https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
   const matches = text.match(
@@ -130,11 +128,15 @@ function parseChunk(text, opts: ParseOpts): Chunk {
 
   let bgColor = null;
   let fgColor = null;
-  let decoration: ?Decorations = null;
+  let decoration: Decorations | null = null;
 
   while (nums.length > 0) {
     const numStr = nums.shift();
-    const num = parseInt(numStr, 10);
+
+    let num = Number.NaN;
+    if (numStr) {
+      num = parseInt(numStr, 10);
+    }
 
     if (Number.isNaN(num) || num === 0) {
       fgColor = bgColor = decoration = null;
@@ -173,27 +175,29 @@ function parseChunk(text, opts: ParseOpts): Chunk {
     } else if (num >= 100 && num < 108) {
       bgColor = createAnsiColor(ansiColors[num % 10], true);
     } else if (num === 38 || num === 48) {
-      if (nums.length >= 1) {
+      if (nums.length > 0) {
         const mode = nums.shift();
-        let color: Color;
+        let color: Color | null = null;
 
-        if (mode === "5" && nums.length >= 1) {
-          const val = parseInt(nums.shift(), 10);
+        if (mode === "5" && nums.length > 0) {
+          const val = parseInt(nums.shift() as string, 10);
           color = format8bitColor(val);
-        } else if (mode === "2" && nums.length >= 3) {
+        } else if (mode === "2" && nums.length > 2) {
           color = createRGBColor(
-            parseInt(nums.shift(), 10),
-            parseInt(nums.shift(), 10),
-            parseInt(nums.shift(), 10),
+            parseInt(nums.shift() as string, 10),
+            parseInt(nums.shift() as string, 10),
+            parseInt(nums.shift() as string, 10),
           );
         }
 
         // extend color (38=fg, 48=bg)
-        const isForeground = num === 38;
-        if (isForeground) {
-          fgColor = color;
-        } else {
-          bgColor = color;
+        if (color) {
+          const isForeground = num === 38;
+          if (isForeground) {
+            fgColor = color;
+          } else {
+            bgColor = color;
+          }
         }
       }
     }
@@ -209,13 +213,13 @@ function parseChunk(text, opts: ParseOpts): Chunk {
   return result;
 }
 
-function parse(text: string, opts: ?ParseOpts): Array<Chunk> {
+function parse(text: string, opts?: ParseOpts): Array<Chunk> {
   const rawChunks = text.split(escapeSequence);
-  const firstRawChunk = rawChunks.shift();
+  const firstRawChunk = rawChunks.shift() as string;
 
   const clearLine = /\r/.test(text); // check for Carriage Return
   const parseOpts = { clearLine, ...opts };
-  const chunks = rawChunks.map(chunk => parseChunk(chunk, parseOpts));
+  const chunks = rawChunks.map((chunk) => parseChunk(chunk, parseOpts));
 
   const first = parseChunk("", parseOpts);
   first.content = firstRawChunk;

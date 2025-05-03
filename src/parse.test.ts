@@ -166,7 +166,7 @@ test("parses string with extended palette grayscale", () => {
   });
 });
 
-test("parses string with true color", () => {
+test("parses string with 8-bit color", () => {
   const rs = parse("\x1B[48;2;10;20;30mi am gorgeous\x1B[0m");
 
   expect(rs.length).toBe(3);

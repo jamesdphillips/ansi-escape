@@ -1,8 +1,0 @@
-extends:
-  - "@sensuapp/eslint-config"
-  - "@sensuapp/eslint-config-flow"
-overrides:
-  -
-    files: "*.test.js"
-    env:
-      jest: true
