@@ -7,7 +7,7 @@
 
 > No bells or whistles parsing of ANSI escape sequences.
 
-## ☁️  Installation
+## ☁️ Installation
 
 ```bash
 # Using yarn
@@ -17,7 +17,7 @@ yarn add @jamesdphillips/ansi-escape
 npm install --save @jamesdphillips/ansi-escape
 ```
 
-## 🚀  Usage
+## 🚀 Usage
 
 ```
 import parse from "@jamesdphillips/ansi-escape";

@@ -1,8 +1,8 @@
 {
   "name": "@jamesdphillips/ansi-escape",
-  "version": "1.1.0",
+  "version": "1.1.3",
   "description": "No bells, no whistles just parsing of ANSI escape sequences.",
-  "main": "lib/main.js",
+  "main": "lib/parse.js",
   "directories": {
     "lib": "lib"
   },
@@ -10,14 +10,16 @@
     "lib"
   ],
   "sideEffects": false,
-  "repository": "https://www.github.com/jamesdphillips/ansi-escape ",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesdphillips/ansi-escape.git"
+  },
   "author": "James Phillips <jamesdphillips@gmail.com>",
-  "license": "MIT",
+  "license": "ISC",
   "private": false,
   "devDependencies": {
     "@types/jest": "^29",
     "jest": "^29",
-    "jest-junit": "^13.0.0",
     "prettier": "^3",
     "ts-jest": "^29",
     "typescript": "^5"
